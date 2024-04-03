@@ -3,6 +3,7 @@ const {
   getAllBooks,
   postBook,
   putBook,
+  deleteBook,
 } = require("./controllers/bookController");
 
 const PORT = 5000;
@@ -15,6 +16,12 @@ const server = http.createServer((req, res) => {
   } else if (req.method === "PUT" && req.url.match(/\/api\/books\/([0-9]+)/)) {
     const id = req.url.split("/")[3];
     putBook(req, res, id);
+  } else if (
+    req.method === "DELETE" &&
+    req.url.match(/\/api\/books\/([0-9]+)/)
+  ) {
+    const id = req.url.split("/")[3];
+    deleteBook(req, res, id);
   } else {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.write(JSON.stringify({ message: "Route Not Found." }));

@@ -19,8 +19,14 @@ async function put(id, book) {
   return results;
 }
 
+async function remove(id) {
+  const results = await query(`DELETE FROM Books WHERE id = ${id}`);
+  return results;
+}
+
 module.exports = {
   getAll,
   post,
   put,
+  remove,
 };

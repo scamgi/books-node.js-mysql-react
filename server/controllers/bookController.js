@@ -1,4 +1,4 @@
-const { getAll, post, put } = require("../models/bookModel");
+const { getAll, post, put, remove } = require("../models/bookModel");
 const { getPostData } = require("../utils");
 
 async function getAllBooks(req, res) {
@@ -28,8 +28,17 @@ async function putBook(req, res, id) {
   res.end();
 }
 
+async function deleteBook(req, res, id) {
+  const results = await remove(id);
+
+  res.writeHead(200, { "Content-Type": "application/json" });
+  res.write(JSON.stringify(results));
+  res.end();
+}
+
 module.exports = {
   getAllBooks,
   postBook,
   putBook,
+  deleteBook,
 };
