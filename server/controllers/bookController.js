@@ -1,4 +1,4 @@
-const { getAll, post } = require("../models/bookModel");
+const { getAll, post, put } = require("../models/bookModel");
 const { getPostData } = require("../utils");
 
 async function getAllBooks(req, res) {
@@ -13,6 +13,16 @@ async function postBook(req, res) {
   const newBook = JSON.parse(newBookString);
   const results = await post(newBook);
 
+  res.writeHead(201, { "Content-Type": "application/json" });
+  res.write(JSON.stringify(results));
+  res.end();
+}
+
+async function putBook(req, res, id) {
+  const bookString = await getPostData(req, res);
+  const book = JSON.parse(bookString);
+  const results = await put(id, book);
+
   res.writeHead(200, { "Content-Type": "application/json" });
   res.write(JSON.stringify(results));
   res.end();
@@ -21,4 +31,5 @@ async function postBook(req, res) {
 module.exports = {
   getAllBooks,
   postBook,
+  putBook,
 };

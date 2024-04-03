@@ -12,7 +12,15 @@ async function post(book) {
   return results;
 }
 
+async function put(id, book) {
+  const results = await query(
+    `UPDATE Books SET book_title = "${book.book_title}", book_description = "${book.book_description}", book_price = ${book.book_price}, book_cover_link = "${book.book_cover_link}" WHERE id = ${id}`
+  );
+  return results;
+}
+
 module.exports = {
   getAll,
   post,
+  put,
 };
